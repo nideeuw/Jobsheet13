@@ -133,7 +133,7 @@ public class KRSBARU {
                     System.out.println("Terima kasih!");
                     break;
                 default:
-                    System.out.println("Menu tidak tersedia.");
+                    System.out.println("Menu tidak tersedia");
                     break;
             }
         }
