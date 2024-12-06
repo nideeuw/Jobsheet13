@@ -1,20 +1,41 @@
 import java.util.Scanner;
 
 public class KRS {
+
     static Scanner input = new Scanner(System.in);
-    static String[][] dataKRS = new String[100][5];
+    static String[][] dataKRS = new String[150][5];
     static int count = 0;
 
     static void addData() {
         System.out.println("\n--- Tambah Data KRS ---");
-        input.nextLine(); // Clear buffer
+        input.nextLine();
         System.out.print("Nama Mahasiswa: ");
         String nama = input.nextLine();
         System.out.print("NIM: ");
         String nim = input.nextLine();
 
         int totalSKS = 0;
+        boolean nimExists = false;
         String tambah;
+
+        for (int i = 0; i < count; i++) {
+            if (dataKRS[i][0].equals(nim)) {
+                nimExists = true;
+                nama = dataKRS[i][1];
+                break;
+            }
+        }
+
+        if (nimExists) {
+            for (int i = 0; i < count; i++) {
+                if (dataKRS[i][0].equals(nim)) {
+                    totalSKS += Integer.parseInt(dataKRS[i][4]);
+                }
+            }
+            System.out.println("Mahasiswa dengan NIM " + nim + " sudah terdaftar.");
+            System.out.println("Total SKS saat ini: " + totalSKS);
+        }
+
         do {
             System.out.print("Kode Mata Kuliah: ");
             String kode = input.nextLine();
@@ -45,7 +66,7 @@ public class KRS {
 
             System.out.print("Tambah mata kuliah lain? (y/t): ");
             tambah = input.next();
-            input.nextLine(); 
+            input.nextLine();
         } while (tambah.equalsIgnoreCase("y"));
 
         System.out.println("Total SKS yang diambil: " + totalSKS);
@@ -63,7 +84,7 @@ public class KRS {
 
         for (int i = 0; i < count; i++) {
             if (dataKRS[i][0].equals(cariNIM)) {
-                ditemukan = true;    
+                ditemukan = true;
                 for (int j = 0; j < count; j++) {
                     if (dataKRS[j][0].equals(cariNIM)) {
                         System.out.printf("%-10s %-10s %-10s %-25s %s\n",
@@ -71,7 +92,7 @@ public class KRS {
                         totalSKS += Integer.parseInt(dataKRS[j][4]);
                     }
                 }
-                break; 
+                break;
             }
         }
 
@@ -101,7 +122,7 @@ public class KRS {
                     jmlMhsKurang20++;
                     for (int j = 0; j < count; j++) {
                         if (dataKRS[j][0].equals(currentNIM)) {
-                            dataKRS[j][0] = ""; // Mark as processed
+                            dataKRS[j][0] = "";
                         }
                     }
                 }
